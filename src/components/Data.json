@@ -1,0 +1,32 @@
+[
+    {
+        "id" : 1,
+        "name" : "Vũ Huỳnh Minh",
+        "phone" : "01238912491",
+        "permission" : 1
+    },
+    {
+        "id" : 2,
+        "name" : "Nguyễn Ngô Thế Phong",
+        "phone" : "0838912491",
+        "permission" : 2
+    },
+    {
+        "id" : 3,
+        "name" : "Nguyễn Trọng Tân",
+        "phone" : "0914912491",
+        "permission" : 1
+    },
+    {
+        "id" : 4,
+        "name" : "Lê Hoàng Khang",
+        "phone" : "0123456789",
+        "permission" : 3
+    },
+    {
+        "id" : 5,
+        "name" : "Nguyễn Thị Kim Yến",
+        "phone" : "0983912491",
+        "permission" : 3
+    }
+]
