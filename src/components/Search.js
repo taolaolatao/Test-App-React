@@ -20,7 +20,7 @@ class Search extends Component{
   render(){
     return (
         <div>
-          <div className="col-12">
+          <div className="col-12 col-sm-12 col-md-3">
             <div className="form-group">
               <div className="btn-group">
                 <input className="form-control" type="search" placeholder="Search..." aria-label="Search" style={{width: '745px'}} onChange={this.isChangeText} />

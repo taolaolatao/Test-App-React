@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class TableRowData extends Component {
-    checkPermission(){
+    checkPermission() {
         switch (this.props.permission) {
             case 1:
             case "1":
@@ -20,7 +20,7 @@ class TableRowData extends Component {
     render() {
         return (
             <tr>
-                <th scope="row">{this.props.id}</th>
+                <th scope="row">{this.props.id + 1}</th>
                 <td>{this.props.name}</td>
                 <td>{this.props.phone}</td>
                 <td>
