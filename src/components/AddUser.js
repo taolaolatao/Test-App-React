@@ -37,7 +37,7 @@ class AddUser extends Component {
 		      items.id         = this.state.id;
 		      items.name       = this.state.name;
 		      items.phone      = this.state.phone;
-		      items.permission = this.state.permission;
+		      items.permission = +this.state.permission;
 
 		return items;
 	}

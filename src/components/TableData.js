@@ -4,7 +4,7 @@ import TableRowData from './TableRowData';
 class TableData extends Component{
 	showData(){
 		return this.props.data.map((val, key) => 
-			<TableRowData key={key} id={key} name={val.name} phone={val.phone} permission={val.permission} />
+			<TableRowData edit={() => this.props.edit(val)} key={key} id={key} name={val.name} phone={val.phone} permission={val.permission} />
 		)
 	}
 

@@ -3,6 +3,7 @@ import '../App.css';
 import Search 	 from './Search';
 import TableData from './TableData';
 import AddUser 	 from './AddUser';
+import EditUser  from './EditUser';
 import DataUser  from './Data.json';
 import uuidv4    from 'uuid/v4';
 
@@ -12,10 +13,13 @@ class App extends Component{
     
     this.state = {
       data       : DataUser,
-      wordsSearch: ""
+      wordsSearch: "",
+      userEdit   : {}
     }
-    this.getText = this.getText.bind(this);
-    this.getData = this.getData.bind(this);
+    this.getText         = this.getText.bind(this);
+    this.getData         = this.getData.bind(this);
+    this.editUser        = this.editUser.bind(this);
+    this.getDataEditUser = this.getDataEditUser.bind(this);
   }
   
   getText(words){
@@ -25,9 +29,7 @@ class App extends Component{
   }
 
   getData(data){
-    // data.id = (this.state.data.length + 1);
     data.id = uuidv4();
-
     this.state.data.push(data);
     
     this.setState({
@@ -35,11 +37,22 @@ class App extends Component{
     });
   }
 
+  editUser(userInfo){
+    console.log(userInfo);
+    this.setState({
+      userEdit : userInfo
+    });
+  }
+
+  getDataEditUser(data){
+    console.log(data);
+    
+  }
+
   searchByName(){
     const result = [];
     this.state.data.forEach(e => {
-      if(e.name.toLowerCase().includes(this.state.wordsSearch.toLowerCase()) || 
-          e.name.toUpperCase().includes(this.state.wordsSearch.toUpperCase())){
+      if(e.name.toLowerCase().includes(this.state.wordsSearch.toLowerCase())){
         result[result.length] = e;
       }
     });
@@ -50,10 +63,11 @@ class App extends Component{
   render(){
     return (
       <div>
-        <div className="container mt-5">
+        <div className="container-fluid mt-5">
           <div className="row">
             <Search words={this.getText} />
-            <TableData data={this.searchByName()} />
+            <TableData edit={this.editUser} data={this.searchByName()} />
+            <EditUser data={this.state.userEdit} getData={this.getDataEditUser}  />;
             <AddUser data={this.getData} />
           </div>
         </div>
