@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
 class TableRowData extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.editUser = this.editUser.bind(this);
-    }  
-
     checkPermission() {
         switch (this.props.permission) {
             case 1:
@@ -20,10 +14,6 @@ class TableRowData extends Component {
         }
     }
 
-    editUser(){
-        this.props.edit();
-    }
-
     render() {
         return (
             <tr className="tr-user">
@@ -33,7 +23,7 @@ class TableRowData extends Component {
                 <td>{this.checkPermission()}</td>
                 <td>
                     <div className="btn-group">
-                        <button type="button" className="btn btn-danger" onClick={this.editUser} data-toggle="modal" data-target="#openModalEdit">
+                        <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#openModalEdit" onClick={() => this.props.editData()}>
                             <i className="fas fa-user-edit" />
                         </button>
                         <button type="button" className="btn btn-secondary">

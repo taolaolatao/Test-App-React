@@ -3,8 +3,10 @@ import TableRowData from './TableRowData';
 
 class TableData extends Component{
 	showData(){
-		return this.props.data.map((val, key) => 
-			<TableRowData edit={() => this.props.edit(val)} key={key} id={key} name={val.name} phone={val.phone} permission={val.permission} />
+		const data = this.props.dataSearch !== null ? this.props.dataSearch : this.props.data;
+
+		return data.map((val, key) => 
+			<TableRowData editData={() => this.props.editData(val)} key={key} id={key} name={val.name} phone={val.phone} permission={val.permission} />
 		)
 	}
 

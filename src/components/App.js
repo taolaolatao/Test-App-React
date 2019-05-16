@@ -16,18 +16,20 @@ class App extends Component{
       wordsSearch: "",
       userEdit   : {}
     }
-    this.getText         = this.getText.bind(this);
-    this.getData         = this.getData.bind(this);
-    this.editUser        = this.editUser.bind(this);
-    this.getDataEditUser = this.getDataEditUser.bind(this);
-  }
-  
-  getText(words){
-    this.setState({
-      wordsSearch : words
-    })
+    this.getTextSearch = this.getTextSearch.bind(this);
+    this.getData       = this.getData.bind(this);
+    this.editUser      = this.editUser.bind(this);
+    this.updateUser    = this.updateUser.bind(this);
   }
 
+  isEmpty(obj) {
+      for(var key in obj) {
+          if(obj.hasOwnProperty(key))
+              return false;
+      }
+      return true;
+  }
+  
   getData(data){
     data.id = uuidv4();
     this.state.data.push(data);
@@ -37,16 +39,30 @@ class App extends Component{
     });
   }
 
+  getTextSearch(words){
+    this.setState({
+      wordsSearch : words
+    })
+  }
+
   editUser(userInfo){
-    console.log(userInfo);
     this.setState({
       userEdit : userInfo
     });
   }
 
-  getDataEditUser(data){
-    console.log(data);
-    
+  updateUser(data){
+    this.state.data.forEach(e => {
+      if(e.id === data.id){
+        e.name       = data.name;
+        e.phone      = data.phone;
+        e.permission = data.permission;
+      }
+    })
+
+    this.setState({
+      data : this.state.data
+    });
   }
 
   searchByName(){
@@ -65,9 +81,9 @@ class App extends Component{
       <div>
         <div className="container-fluid mt-5">
           <div className="row">
-            <Search words={this.getText} />
-            <TableData edit={this.editUser} data={this.searchByName()} />
-            <EditUser data={this.state.userEdit} getData={this.getDataEditUser}  />;
+            <Search words={this.getTextSearch} />
+            <TableData editData={this.editUser} data={this.state.data} dataSearch={this.searchByName()} />
+            <EditUser userEdit={this.state.userEdit} userUpdate={this.updateUser} />
             <AddUser data={this.getData} />
           </div>
         </div>

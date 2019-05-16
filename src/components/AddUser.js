@@ -28,8 +28,6 @@ class AddUser extends Component {
 		this.setState({
 			[name]: value
 		})
-
-		console.log(this.state);
 	}
 
 	sendData() {
