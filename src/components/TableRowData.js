@@ -26,7 +26,7 @@ class TableRowData extends Component {
                         <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#openModalEdit" onClick={() => this.props.editData()}>
                             <i className="fas fa-user-edit" />
                         </button>
-                        <button type="button" className="btn btn-secondary">
+                        <button type="button" className="btn btn-secondary" onClick={() => this.props.userDelete()}>
                             <i className="fa"></i>
                         </button>
                     </div>

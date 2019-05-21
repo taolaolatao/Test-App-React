@@ -6,7 +6,7 @@ class TableData extends Component{
 		const data = this.props.dataSearch !== null ? this.props.dataSearch : this.props.data;
 
 		return data.map((val, key) => 
-			<TableRowData editData={() => this.props.editData(val)} key={key} id={key} name={val.name} phone={val.phone} permission={val.permission} />
+			<TableRowData editData={() => this.props.editData(val)} userDelete={() => this.props.userDelete(val.id)} key={key} id={key} name={val.name} phone={val.phone} permission={val.permission} />
 		)
 	}
 

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Search 	 from './Search';
-import TableData from './TableData';
-import AddUser 	 from './AddUser';
-import EditUser  from './EditUser';
-import DataUser  from './Data.json';
-import uuidv4    from 'uuid/v4';
+import Search 	  from './Search';
+import TableData  from './TableData';
+import AddUser 	  from './AddUser';
+import EditUser   from './EditUser';
+import DataUser   from './Data.json';
+import Swal       from 'sweetalert2';
+import uuidv4     from 'uuid/v4';
 
 class App extends Component{
   constructor(props) {
@@ -20,8 +21,25 @@ class App extends Component{
     this.getData       = this.getData.bind(this);
     this.editUser      = this.editUser.bind(this);
     this.updateUser    = this.updateUser.bind(this);
+    this.deleteUser    = this.deleteUser.bind(this);
   }
 
+  checkStorage(){
+    return typeof Storage !== 'undefined' ? true : false;
+  }
+  
+  componentWillMount() {
+    if(this.checkStorage()){
+      if(localStorage.getItem('userData') === null){
+        localStorage.setItem('userData', JSON.stringify(DataUser));
+      } else{
+        this.setState({
+          data : JSON.parse(localStorage.getItem('userData'))
+        });
+      }
+    }
+  }
+  
   isEmpty(obj) {
       for(var key in obj) {
           if(obj.hasOwnProperty(key))
@@ -34,6 +52,9 @@ class App extends Component{
     data.id = uuidv4();
     this.state.data.push(data);
     
+    if(this.checkStorage()){
+      localStorage.setItem('userData', JSON.stringify(this.state.data));
+    }
     this.setState({
       data : this.state.data
     });
@@ -42,6 +63,33 @@ class App extends Component{
   getTextSearch(words){
     this.setState({
       wordsSearch : words
+    })
+  }
+
+  deleteUser(idUser){
+    const data = this.state.data.filter(e => e.id !== idUser);
+
+    Swal.fire({
+      title: 'Delete user?',
+      text: 'Bạn có muốn xóa user?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        if(this.checkStorage()){
+          localStorage.setItem('userData', JSON.stringify(data));
+        }
+        this.setState({ data : data });
+        Swal.fire({
+          title: 'Deleted',
+          text: 'User is deleted',
+          type: 'success',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     })
   }
 
@@ -60,6 +108,9 @@ class App extends Component{
       }
     })
 
+    if(this.checkStorage()){
+      localStorage.setItem('userData', JSON.stringify(this.state.data));
+    }
     this.setState({
       data : this.state.data
     });
@@ -82,7 +133,7 @@ class App extends Component{
         <div className="container-fluid mt-5">
           <div className="row">
             <Search words={this.getTextSearch} />
-            <TableData editData={this.editUser} data={this.state.data} dataSearch={this.searchByName()} />
+            <TableData editData={this.editUser} userDelete={this.deleteUser} data={this.state.data} dataSearch={this.searchByName()} />
             <EditUser userEdit={this.state.userEdit} userUpdate={this.updateUser} />
             <AddUser data={this.getData} />
           </div>
